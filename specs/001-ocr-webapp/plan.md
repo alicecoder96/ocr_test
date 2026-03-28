@@ -7,6 +7,7 @@
 
 ブラウザ上でカメラを起動して撮影し、撮影した画像を直接 Gemini Flash に渡して
 文字テキストを抽出・表示する Streamlit 製 OCR Web アプリを実装する。
+ログインフォームで認証済みユーザーのみアクセスを許可し、API の不正利用を防ぐ。
 ユーザーは抽出テキストをコピーして利用できる。
 
 ## Technical Context
@@ -18,7 +19,7 @@
 **Target Platform**: ブラウザ（デスクトップ・モバイル対応）/ ローカル実行
 **Project Type**: web-app（Streamlit シングルページアプリ）
 **Performance Goals**: 撮影から OCR 結果表示まで 60 秒以内
-**Constraints**: GEMINI_API_KEY は Streamlit secrets（`st.secrets`）で管理・インターネット接続必須
+**Constraints**: GEMINI_API_KEY・認証情報は Streamlit secrets（`st.secrets`）で管理・インターネット接続必須
 **Deploy Target**: Streamlit Community Cloud
 **Scale/Scope**: シングルユーザー想定（同時利用者数の上限なし）
 
@@ -91,6 +92,12 @@ Constitution IV（シンプルさ優先）に従い、src/ ディレクトリ階
   前処理済み画像を base64 エンコードして multimodal プロンプトに渡す。
 - **Rationale**: 高速・低コスト・高精度。独自モデル訓練不要。
 - **Alternatives considered**: Gemini Pro（低速・高コスト）、Tesseract（精度低）
+
+### 認証
+
+- **Decision**: `st.session_state` でログイン状態を管理するシンプルなログインフォームを `app.py` に実装する。認証情報（ユーザー名・パスワード）は `st.secrets["AUTH_USERNAME"]` / `st.secrets["AUTH_PASSWORD"]` で管理する。
+- **Rationale**: 追加ライブラリ不要。`st.secrets` はソースコードに含まれないため GitHub public リポジトリでも安全。
+- **Alternatives considered**: `streamlit-authenticator` ライブラリ（設定が複雑、YAGNI に反する）
 
 ### テキストコピー
 

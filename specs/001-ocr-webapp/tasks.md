@@ -29,7 +29,23 @@
 
 ---
 
-## Phase 3: User Story 1 - カメラで撮影して文字を抽出する (Priority: P1) 🎯 MVP
+## Phase 3: User Story 2 - ログイン認証 (Priority: P2)
+
+**Goal**: 認証済みユーザーのみ OCR 機能にアクセスできるようにする
+
+**Independent Test**: 未ログイン状態でアプリを開くとログインフォームのみ表示され、OCR 画面が表示されないことを確認する
+
+- [x] T-A01 [US2] `app.py` にセッション状態（`st.session_state.logged_in`）の初期化を実装する
+- [x] T-A02 [US2] `app.py` にログインフォーム（ユーザー名・パスワード入力）を実装する
+- [x] T-A03 [US2] `app.py` に `st.secrets` から認証情報を取得して照合するロジックを実装する
+- [x] T-A04 [US2] `app.py` にログアウトボタンを実装する
+- [x] T-A05 [US2] `.streamlit/secrets.toml.example` に `AUTH_USERNAME`・`AUTH_PASSWORD` を追加する
+
+**Checkpoint**: 未認証時はログインフォームのみ表示される
+
+---
+
+## Phase 4: User Story 1 - カメラで撮影して文字を抽出する (Priority: P1) 🎯 MVP
 
 **Goal**: カメラ撮影 → 前処理 → Gemini OCR → 結果表示の一連フローを完成させる
 
