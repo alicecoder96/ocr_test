@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(specify --help)",
-      "Bash(specify init:*)"
+      "Bash(specify init:*)",
+      "Bash(bash /Users/ikumajin110/Develop/ocr/.specify/scripts/bash/update-agent-context.sh claude 2>&1)",
+      "Bash(git -C /Users/ikumajin110/Develop/ocr rev-parse --git-dir)"
     ]
   }
 }
