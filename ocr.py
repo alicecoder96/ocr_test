@@ -5,10 +5,17 @@ from PIL import Image
 from google import genai
 from google.genai import types
 
+# 利用可能なモデル定義: (モデルID, セレクトボックス表示名)
+MODELS = [
+    ("gemini-2.5-flash", "gemini-2.5-flash　⭐⭐⭐⭐　速い・高精度（推奨）"),
+    ("gemini-2.5-pro",   "gemini-2.5-pro　　⭐⭐⭐⭐⭐　最高精度・低速"),
+    ("gemini-2.0-flash-lite", "gemini-2.0-flash-lite　⭐⭐⭐　最速・標準精度"),
+]
 
-def extract_text(image: Image.Image, api_key: str) -> str:
+
+def extract_text(image: Image.Image, api_key: str, model: str) -> str:
     """
-    入力: 画像 (PIL.Image)、Gemini API キー (str)
+    入力: 画像 (PIL.Image)、Gemini API キー (str)、モデル名 (str)
     出力: 抽出テキスト文字列（文字未検出時は空文字列）
     例外: 接続エラー時は RuntimeError を raise
     """
@@ -20,7 +27,7 @@ def extract_text(image: Image.Image, api_key: str) -> str:
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model=model,
             contents=[
                 types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
                 "この画像に含まれるテキストをすべて抽出してください。テキストのみを返し、説明は不要です。テキストがない場合は何も返さないでください。",

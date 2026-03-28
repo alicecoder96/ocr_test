@@ -74,6 +74,10 @@
 
 ### Implementation for User Story 2
 
+- [x] T-M01 [US3] `ocr.py` にモデル定義（モデルID・表示名・精度目安）を定数として追加する
+- [x] T-M02 [US3] `app.py` に `st.selectbox()` によるモデル選択 UI を実装する（精度目安を選択肢に表示）
+- [x] T-M03 [US3] `app.py` から選択モデルを `extract_text()` に渡す
+- [x] T-M04 [US3] `ocr.py` の `extract_text()` がモデル名を引数で受け取るよう更新する
 - [x] T015 [US2] `app.py` の結果表示部分を `st.code(result, language=None)` に変更してコピーアイコンを有効化する（T012 を更新）
 
 **Checkpoint**: US1・US2 が両方独立して動作確認できる

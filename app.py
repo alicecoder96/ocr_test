@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-from ocr import extract_text, get_api_key
+from ocr import extract_text, get_api_key, MODELS
 
 st.set_page_config(page_title="OCR アプリ", layout="centered")
 
@@ -48,6 +48,12 @@ except RuntimeError as e:
     st.error(str(e))
     st.stop()
 
+# モデル選択
+model_labels = [label for _, label in MODELS]
+model_ids = [model_id for model_id, _ in MODELS]
+selected_index = st.selectbox("モデルを選択", range(len(MODELS)), format_func=lambda i: model_labels[i])
+selected_model = model_ids[selected_index]
+
 # カメラ入力
 image_data = st.camera_input("カメラで撮影してください")
 
@@ -56,7 +62,7 @@ if image_data is not None:
 
     with st.spinner("テキストを抽出中..."):
         try:
-            result = extract_text(pil_image, api_key)
+            result = extract_text(pil_image, api_key, selected_model)
         except RuntimeError as e:
             st.error(f"エラーが発生しました: {e}")
             st.stop()

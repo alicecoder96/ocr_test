@@ -93,6 +93,12 @@ Constitution IV（シンプルさ優先）に従い、src/ ディレクトリ階
 - **Rationale**: 高速・低コスト・高精度。独自モデル訓練不要。
 - **Alternatives considered**: Gemini Pro（低速・高コスト）、Tesseract（精度低）
 
+### モデル選択
+
+- **Decision**: `st.selectbox()` でモデルを選択。選択肢は `ocr.py` に定数として定義し、モデル名・精度目安・速度をセットで管理する。
+- **Rationale**: 追加ライブラリ不要。モデル定義を `ocr.py` に集約することで `app.py` が定数を参照するだけで済む。
+- **Alternatives considered**: 設定ファイル（YAML等）で管理（過剰、YAGNI に反する）
+
 ### 認証
 
 - **Decision**: `st.session_state` でログイン状態を管理するシンプルなログインフォームを `app.py` に実装する。認証情報（ユーザー名・パスワード）は `st.secrets["AUTH_USERNAME"]` / `st.secrets["AUTH_PASSWORD"]` で管理する。
