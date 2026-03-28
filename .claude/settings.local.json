@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(specify --help)",
+      "Bash(specify init:*)"
+    ]
+  }
+}
